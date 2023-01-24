@@ -205,9 +205,6 @@ p10
 dev.off()
 
 #----- sarrogate marker -----#
-#mtx <- assay(GEx_DEG_AvsB)[which(assay(GEx_DEG_AvsB)[,"log2FoldChange"] < -1 & assay(GEx_DEG_AvsB)[,"FDR"] < 0.01),]
-#mtx <- mtx[order(mtx[, "FDR"]),] %>% data.frame
-#mtx$gene <- mcols(GEx_DEG_AvsB)[rownames(mtx), "gene_name"]
 TCGA_BRCA_RNA_ERALL_se <- TCGA_BRCA_RNA_PT_se[, which(TCGA_BRCA_RNA_PT_se$ER == "Positive" & TCGA_BRCA_RNA_PT_se$HER2 == "Negative")]
 
 markerValue <- assays(TCGA_BRCA_RNA_ERALL_se)$tpm_unstrand[B_DEG,]
@@ -256,61 +253,3 @@ p12 <- ggsurvplot(fit = sf, data = surv,
 pdf("output/Plots/S7_KMplot_GExSurrogate.pdf", width = 6, height = 6)
 p12
 dev.off()
-
-#----- METABRIC data -----#
-# BiocManager::install("cBioPortalData")
-# library(cBioPortalData)
-# METABRIC <- cBioDataPack("brca_metabric",use_cache = TRUE,
-#                          names.field = c("Hugo_Symbol", "Entrez_Gene_Id", "Gene"), 
-#                          ask = TRUE)
-# METABRIC.assay <- assays(METABRIC)
-# METAClin <- colData(METABRIC)
-# 
-# #ER+/HER2-
-# METAClin_ER <- METAClin[which(METAClin$ER_STATUS == "Positive" & METAClin$HER2_STATUS == "Negative"),]
-# METAOS_HT <- as.data.frame(METAClin_ER[which(METAClin_ER$HORMONE_THERAPY == "YES"), c("OS_STATUS","OS_MONTHS")])
-# METAOS_NHT <- as.data.frame(METAClin_ER[which(METAClin_ER$HORMONE_THERAPY == "NO"), c("OS_STATUS","OS_MONTHS")])
-# 
-# #Zscore matrix
-# mtx <- METABRIC.assay$mrna_agilent_microarray
-# ht_mtx <- mtx[, intersect(rownames(METAOS_HT), colnames(mtx))]
-# nht_mtx <- mtx[, intersect(rownames(METAOS_NHT), colnames(mtx))]
-# 
-# #markergene
-# markers <- read.table("output/Tables/TCGA_GEx_DEG_AvsB_CA-B.txt")[,1] #114 genes
-# markers <- intersect(rownames(mtx), markers) #33 genes
-# write.table(markers, "output/Tables/TCGA_GEx_DEG_AvsB_CA-B_overlapMETABRIC.txt", quote = F, row.names = F, col.names = F)
-# 
-# sort(colMeans(ht_mtx[markers, ])) %>% plot
-# 
-# #survival, hormone treatment
-# markerValue <- colMeans(ht_mtx[markers, ]) #968 patients
-# 
-# #BOTTOM <- names(sort(markerValue))[c(1:319)]
-# #TOP    <- names(sort(markerValue, decreasing = T))[c(1:319)]
-# BOTTOM <- names(markerValue)[markerValue < 5.8]
-# TOP    <- names(markerValue)[markerValue >= 5.8]
-# 
-# surv <- data.frame(sample = rownames(METAOS_HT),
-#                    OS_MONTHS = METAOS_HT$OS_MONTHS,
-#                    OS_STATUS = stringr::str_split(METAOS_HT$OS_STATUS, ":", simplify = T)[,1] %>% as.numeric)
-# surv <- surv[surv$sample %in% c(BOTTOM, TOP), ]
-# surv$group <- "N"
-# surv$group[surv$sample %in% BOTTOM] <- "BOTTOM"
-# surv$group[surv$sample %in% TOP] <- "TOP"
-# 
-# sf <- survfit(Surv(surv$OS_MONTHS, surv$OS_STATUS)~surv$group)
-# p13 <- ggsurvplot(fit = sf, data = surv,
-#                   palette = c("blue", "red"),
-#                   pval = TRUE, pval.method = TRUE,
-#                   risk.table = TRUE, conf.int = FALSE,
-#                   ncensor.plot = FALSE, size = 1.5, #linetype = c(1, 3),
-#                   title = "GEx Surrogate",
-#                   legend.title = "",
-#                   log.rank.weights = "1",
-#                   risk.table.title = "",
-#                   risk.table.y.text.col = TRUE,
-#                   risk.table.y.text = FALSE)
-# pdf("output/Plots/S7_KMplot_GExSurrogate.pdf", width = 6, height = 6)
-# p12
-# dev.off()
