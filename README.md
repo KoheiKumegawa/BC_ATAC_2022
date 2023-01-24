@@ -2,7 +2,7 @@
 
 ## publisher's page : 
 ### Thank you for visiting our publication page. Please cite if our work helps you.
-### Download data: [ATAC-seq fragment files of 42 BC patients]()
+### Download data: [ATAC-seq peak files of 42 BC patients]()
 ### Public data sources: [TCGA ATAC-seq](https://gdc.cancer.gov/about-data/publications/ATACseq-AWG)
 ### We thank the great studies about ATAC-seq analysis. This study is inspired by [TCGA ATAC-seq study](https://www.science.org/doi/10.1126/science.aav1898) and our R codes are constructed based on the TCGA ATAC-seq study and [ArchR](https://www.nature.com/articles/s41588-021-00790-6).
 
