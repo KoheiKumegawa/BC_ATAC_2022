@@ -82,8 +82,3 @@ plotAnnoPie(peakAnnoUnique)
 dev.off()
 
 saveRDS(se, "rds/se2.rds")
-
-
-
-
-
