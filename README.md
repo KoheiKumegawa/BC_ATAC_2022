@@ -1,6 +1,6 @@
-# Chromatin profile-based identification of a novel ER-positive breast cancer subgroup with reduced ER-responsive element accessibility (K Kumegawa*, S Saeki*, Y Takahashi* et al., British Journal of Cancer, in press)
+# Chromatin profile-based identification of a novel ER-positive breast cancer subgroup with reduced ER-responsive element accessibility (K Kumegawa*, S Saeki*, Y Takahashi* et al., British Journal of Cancer, 2023)
 
-## publisher's page : 
+## publisher's page : https://rdcu.be/c4FdJ
 ### Thank you for visiting our publication page. Please cite if our work helps you.
 ### Download data: [ATAC-seq peak files of 42 BC patients]() and [SummarizedExperiment object (count and normalized count matrix)]()
 ### Public data sources: [TCGA ATAC-seq](https://gdc.cancer.gov/about-data/publications/ATACseq-AWG)
